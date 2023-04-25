@@ -3,6 +3,7 @@
 namespace App\Admin\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\DetectionLogs;
 use App\Monitor;
 use Encore\Admin\Controllers\AdminController;
 use Encore\Admin\Form;
@@ -67,6 +68,7 @@ class MonitorController extends Controller
     }
 
     public function index(Content $content){
+        $detectionLog = DetectionLogs::query()->get()->toArray();
         return $content
             ->title('口罩佩戴检测')
             ->description('监控视频')
@@ -78,7 +80,7 @@ class MonitorController extends Controller
                     ]));
                 });
                 $row->column(4, function (Column $column) {
-                    $column->append(view('components.admin.monitor', [
+                    $column->append(view('components.admin.detection_log', [
                         'video_url' => 'test'
                     ]));
                 });
